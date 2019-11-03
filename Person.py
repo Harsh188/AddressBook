@@ -20,13 +20,19 @@ class Person:
 		self.email = email
 		self.address = address
 		self.birthday = birthday
-		self.fav = favorites
+		self.fav = True if favorites=='yes' else False
 
 	def get_name(self):
 		'''
 		The get_name function is used to acess the individuals name.
-		
 		Returns: 	name of individual
 		'''
-		
 		return self.name
+	
+	def get_fav(self):
+		'''
+		The get_fav function is used to access the if the individual
+		is on the favorites list.
+		Returns: boolean True/False
+		'''
+		return self.fav
