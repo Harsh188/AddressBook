@@ -19,6 +19,16 @@
 
 from Person import Person
 
+people_list = []
+def disp_fav():
+	'''
+	This function will filter out all of the favorite contacts in 
+	the list of contacts and display their information.
+	'''
+	fav_list = list(filter(lambda p: p.get_fav()==True, people_list))
+	for f in fav_list:
+		print(f.get_name())
+
 def search():
 	'''
 	This function will search the individuals name in the list
@@ -26,8 +36,17 @@ def search():
 	Parameter:
 	Return:
 	'''
-
-	pass
+	print('\n\n')
+	print("a. Display favorites")
+	print('b. Search by name')
+	user_in = input('Select your option: ').strip()
+	if (user_in.lower() == 'a'):
+		disp_fav()
+	elif user_in.lower() == 'b':
+		pass
+	else:
+		print('Invalid input please try again')
+		search()
 
 def add_contact():
 	'''
@@ -56,13 +75,14 @@ def askInput():
 	Parameter:	None
 	Return:	None
 	'''
-
+	print('\n\n\n')
 	print("Welcome to the addressbook")
 	print("1. Search contact")
 	print("2. Add contact")
 	print("3. Edit contact")
 	print("Q to Quit")
-	return input().strip()
+	return input('Select your option: ').strip()
+	print('\n\n')
 
 def run():
 	'''
@@ -94,10 +114,10 @@ def parse_file():
 	Parameter:	None
 	Return:	None
 	'''
-	people_list = []
+	
 	with open('contacts.txt', 'r') as f:
 		f_contents = f.readlines()
-		while(len(f_contents)>6):
+		while(len(f_contents)>5):
 			name = f_contents.pop(0).strip()
 			phone = f_contents.pop(0).strip()
 			email = f_contents.pop(0).strip()
@@ -106,6 +126,7 @@ def parse_file():
 			fav = f_contents.pop(0).strip()
 			p = Person(name,phone,email,address,birthday,fav)
 			people_list.append(p)
+
 #####################################################################
 #							Driver Code								#
 #####################################################################
