@@ -75,7 +75,9 @@ def edit():
 	for p in people_list:
 		names.append(p.get_name())
 	print('\n\n\n')
+	print('Here is the list of contacts:')
 	print(names)
+	print('Which one contact you like to edit: ')
 
 def askInput():
 	'''wywy
