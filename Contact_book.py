@@ -1,33 +1,36 @@
 #####################################################################
-#							Contact_book.py							#
-#																	#
-#	Version: 1.0													#
-#	Date: 11/02/2019												#
-#	Description:	This module is the main module which performs	#
-#					all of the crutial functions in order to		# 
-#					satisfy the users desires 						#
-#	The Contact book stores information of each individual such	as 	#
-#		thier name, phone number, email, residential address and	#
-#		birthday. It will then provide the user with the following	#
-#		services: 													#
-#			1. Search for a contact 								#
-#				a. By name 											#
-#				b. Favorites 										#
-#			2. Add a contact 										#
-#			3. Edit a contact 										#			
+#	Contact_book.py							
+#																	
+#	Version: 1.0													
+#	Date: 11/02/2019												
+#	Description:	This module is the main module which performs	
+#					all of the crutial functions in order to		
+#					satisfy the users desires 						
+#	The Contact book stores information of each individual such	as 	
+#		thier name, phone number, email, residential address and	
+#		birthday. It will then provide the user with the following	
+#		services: 													
+#			1. Search for a contact 								
+#				a. By name 											
+#				b. Favorites 										
+#			2. Add a contact 										
+#			3. Edit a contact 													
 #####################################################################
 
 from Person import Person
 
 people_list = []
+
 def disp_fav():
 	'''
 	This function will filter out all of the favorite contacts in 
 	the list of contacts and display their information.
+	parameters: none
+	return: none
 	'''
 	fav_list = list(filter(lambda p: p.get_fav()==True, people_list))
 	for f in fav_list:
-		print(f.get_name())
+		f.display_info()
 
 def search():
 	'''
@@ -39,10 +42,13 @@ def search():
 	print('\n\n')
 	print("a. Display favorites")
 	print('b. Search by name')
-	user_in = input('Select your option: ').strip()
+	print('c. Go Back')
+	user_in = input('\nWhat would you like to do?: ').strip()
 	if (user_in.lower() == 'a'):
 		disp_fav()
 	elif user_in.lower() == 'b':
+		pass
+	elif user_in.lower() == 'c':
 		pass
 	else:
 		print('Invalid input please try again')
@@ -56,7 +62,6 @@ def add_contact():
 	Parameter:
 	Return:
 	'''
-
 	pass
 
 def edit():
@@ -66,22 +71,25 @@ def edit():
 	Parameter:
 	Return:
 	'''
-	pass
+	names = []
+	for p in people_list:
+		names.append(p.get_name())
+	print('\n\n\n')
+	print(names)
 
 def askInput():
-	'''
+	'''wywy
 	This function asks the user which action/service they would like
 	to perform.
 	Parameter:	None
 	Return:	None
 	'''
 	print('\n\n\n')
-	print("Welcome to the addressbook")
 	print("1. Search contact")
 	print("2. Add contact")
 	print("3. Edit contact")
-	print("Q to Quit")
-	return input('Select your option: ').strip()
+	print("Q  to Quit")
+	return input('\nWhat would you like to do?: ').strip()
 	print('\n\n')
 
 def run():
@@ -91,6 +99,12 @@ def run():
 	Parameter: None
 	Return:	None
 	'''
+	print('\n\n\n')
+	print('='*80)
+	print("Welcome to the addressbook")
+	print('This program stores all of your contacts so you ' \
+		+'will never forget them again!')
+	print('='*80)
 
 	while(True):
 		user_in = askInput()
@@ -103,7 +117,7 @@ def run():
 		elif user_in.lower() == 'q':
 			break
 		else:
-			print("Invalid input please try again")
+			print("Invalid input please try again!")
 
 def parse_file():
 	'''
@@ -128,7 +142,7 @@ def parse_file():
 			people_list.append(p)
 
 #####################################################################
-#							Driver Code								#
+#	Driver Code								
 #####################################################################
 
 if __name__ == '__main__':
