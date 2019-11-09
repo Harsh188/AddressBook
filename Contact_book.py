@@ -18,8 +18,14 @@
 #####################################################################
 
 from Person import Person
+from tempfile import mkstemp
+from shutil import move
+import os
 
 people_list = []
+
+def sort_contacts():
+	pass
 
 def disp_fav():
 	'''
@@ -48,6 +54,7 @@ def search():
 		disp_fav()
 	elif user_in.lower() == 'b':
 		pass
+
 	elif user_in.lower() == 'c':
 		pass
 	else:
@@ -64,6 +71,18 @@ def add_contact():
 	'''
 	pass
 
+def replace(file_path, pattern, subst):
+    #Create temp file
+    fh, abs_path = mkstemp()
+    with os.fdopen(fh,'w') as new_file:
+        with open(file_path) as old_file:
+            for line in old_file:
+                new_file.write(line.replace(pattern, subst))
+    #Remove original file
+    os.remove(file_path)
+    #Move new file
+    move(abs_path, file_path)
+
 def edit():
 	'''
 	This function will perform any edits on an already existing
@@ -74,10 +93,40 @@ def edit():
 	names = []
 	for p in people_list:
 		names.append(p.get_name())
+
 	print('\n\n\n')
-	print('Here is the list of contacts:')
-	print(names)
-	print('Which one contact you like to edit: ')
+	print('Here is the list of contacts:\n')
+	for x,ele in enumerate(names,start=0):
+		print(x,ele)
+	user_in = input('\nWhich one contact you like to edit: ').strip()
+	person = people_list[int(user_in)]
+	print('Enter in new chances. Leave empty if no change.')
+	new_name = input('\n\nName: ').strip()
+	new_phone = input('\nPhone Number: ').strip()
+	new_email = input('\nEmail: ').strip()
+	new_address = input('\nAddress: ').strip()
+	new_birthday = input('\nBirthday: ').strip()
+	new_fav = input('\nFavorites(yes/no): ').strip().lower()
+
+	dir_path = os.path.dirname(os.path.realpath(__file__))
+	os.chdir(dir_path)
+	file_path = os.path.abspath("contacts.txt")
+	if new_name!='':
+		replace(file_path,person.get_name(),new_name)
+	if new_phone!='':
+		replace(file_path,person.get_phone(),new_phone)
+	if new_email!='':
+		replace(file_path,person.get_email(),new_email)
+	if new_address!='':
+		replace(file_path,person.get_add(),new_address)
+	if new_birthday!='':
+		replace(file_path,person.get_birthday(),new_birthday)
+	if new_fav!='':
+		fav = 'yes' if person.get_fav()==True else 'no'	
+		replace(file_path,fav,new_fav)
+
+	parse_file()
+
 
 def askInput():
 	'''wywy
@@ -130,7 +179,8 @@ def parse_file():
 	Parameter:	None
 	Return:	None
 	'''
-	
+	global people_list
+	people_list = []
 	with open('contacts.txt', 'r') as f:
 		f_contents = f.readlines()
 		while(len(f_contents)>5):
