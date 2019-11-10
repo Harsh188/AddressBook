@@ -38,7 +38,10 @@ def disp_fav():
 	for f in fav_list:
 		f.display_info()
 
-def search():
+def find_person():
+	pass
+
+def display():
 	'''
 	This function will search the individuals name in the list
 	by performing a binary search.
@@ -53,13 +56,13 @@ def search():
 	if (user_in.lower() == 'a'):
 		disp_fav()
 	elif user_in.lower() == 'b':
-		pass
-
+		sort_contacts()
+		find_person().display_info()
 	elif user_in.lower() == 'c':
 		pass
 	else:
 		print('Invalid input please try again')
-		search()
+		display()
 
 def add_contact():
 	'''
@@ -71,17 +74,22 @@ def add_contact():
 	'''
 	pass
 
-def replace(file_path, pattern, subst):
-    #Create temp file
-    fh, abs_path = mkstemp()
-    with os.fdopen(fh,'w') as new_file:
-        with open(file_path) as old_file:
-            for line in old_file:
-                new_file.write(line.replace(pattern, subst))
+def replace(file_path, pattern, subst, start = 0):
+	#Create temp file
+	fh, abs_path = mkstemp()
+	ctr =0
+	with os.fdopen(fh,'w') as new_file:
+		with open(file_path) as old_file:
+			for line in old_file:
+				if ctr>=start:
+					new_file.write(line.replace(pattern, subst))
+				else:
+					new_file.write(line)
+				ctr+=1
     #Remove original file
-    os.remove(file_path)
+	os.remove(file_path)
     #Move new file
-    move(abs_path, file_path)
+	move(abs_path, file_path)
 
 def edit():
 	'''
@@ -108,25 +116,26 @@ def edit():
 	new_birthday = input('\nBirthday: ').strip()
 	new_fav = input('\nFavorites(yes/no): ').strip().lower()
 
+	start = int(user_in)*6
+
 	dir_path = os.path.dirname(os.path.realpath(__file__))
 	os.chdir(dir_path)
 	file_path = os.path.abspath("contacts.txt")
 	if new_name!='':
-		replace(file_path,person.get_name(),new_name)
+		replace(file_path,person.get_name(),new_name,start)
 	if new_phone!='':
-		replace(file_path,person.get_phone(),new_phone)
+		replace(file_path,person.get_phone(),new_phone,start)
 	if new_email!='':
-		replace(file_path,person.get_email(),new_email)
+		replace(file_path,person.get_email(),new_email,start)
 	if new_address!='':
-		replace(file_path,person.get_add(),new_address)
+		replace(file_path,person.get_add(),new_address,start)
 	if new_birthday!='':
-		replace(file_path,person.get_birthday(),new_birthday)
+		replace(file_path,person.get_birthday(),new_birthday,start)
 	if new_fav!='':
 		fav = 'yes' if person.get_fav()==True else 'no'	
-		replace(file_path,fav,new_fav)
+		replace(file_path,fav,new_fav,start)
 
 	parse_file()
-
 
 def askInput():
 	'''wywy
@@ -160,7 +169,7 @@ def run():
 	while(True):
 		user_in = askInput()
 		if user_in == '1':
-			search()
+			display()
 		elif user_in == '2':
 			add_contact()
 		elif user_in == '3':
