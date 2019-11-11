@@ -109,9 +109,9 @@ def add_contact(list_info):
 	Parameter: List of info
 	Return: none
 	'''
-	f = open("contacts.txt","w")
+	f = open("contacts.txt","a")
 	for x in list_info:
-		f.write(x)
+		f.write(x+'\n')
 	f.close()
 
 def replace(file_path, pattern, subst, start = 0):
@@ -163,6 +163,8 @@ def parse_file():
 	Parameter:	None
 	Return:	None
 	'''
+	global people_list
+	people_list = []
 	with open('contacts.txt', 'r') as f:
 		f_contents = f.readlines()
 		while(len(f_contents)>5):
@@ -180,6 +182,4 @@ def parse_file():
 #####################################################################
 
 if __name__ == '__main__':
-	# sort_contacts()
-	# print(search('Robert Davidson'))
 	pass
