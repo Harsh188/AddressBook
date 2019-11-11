@@ -99,7 +99,7 @@ def run():
 	The run function will be the soul opperator which runs the
 	program.
 	Parameter: None
-	Return:	None
+	Return:	None2
 	'''
 	print('\n\n\n')
 	print('='*80)
