@@ -38,11 +38,12 @@ def sort_contacts():
 		for p in people_list:
 			info_list = p.get_info()
 			for x in info_list:
-				new_file.write(x)
+				new_file.write(x+'\n')
     #Remove original file
 	os.remove(file_path)
     #Move new file
 	move(abs_path, file_path)
+	parse_file()
 
 def disp_fav():
 	'''
@@ -51,6 +52,7 @@ def disp_fav():
 	parameters: none
 	return: none
 	'''
+	sort_contacts()
 	string_output = ''
 	fav_list = list(filter(lambda p: p.get_fav()==True, people_list))
 	for f in fav_list:
@@ -74,6 +76,7 @@ def search_name(name):
 	Parameter: String name
 	Return: String
 	'''
+	sort_contacts()
 	arr = people_list
 	r = len(people_list)-1
 	l = 0
@@ -135,6 +138,7 @@ def edit(name,list_info):
 	Parameter: string name, list of information about contact
 	Return: none
 	'''
+	sort_contacts()
 	names = []
 	for p in people_list:
 		names.append(p.get_name())
@@ -176,5 +180,6 @@ def parse_file():
 #####################################################################
 
 if __name__ == '__main__':
-	parse_file()
-	# run()
+	# sort_contacts()
+	# print(search('Robert Davidson'))
+	pass
