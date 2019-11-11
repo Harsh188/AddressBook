@@ -18,8 +18,14 @@
 #####################################################################
 
 from Person import Person
+from tempfile import mkstemp
+from shutil import move
+import os
 
 people_list = []
+
+def sort_contacts():
+	pass
 
 def disp_fav():
 	'''
@@ -32,7 +38,10 @@ def disp_fav():
 	for f in fav_list:
 		f.display_info()
 
-def search():
+def find_person():
+	pass
+
+def display():
 	'''
 	This function will search the individuals name in the list
 	by performing a binary search.
@@ -47,12 +56,13 @@ def search():
 	if (user_in.lower() == 'a'):
 		disp_fav()
 	elif user_in.lower() == 'b':
-		pass
+		sort_contacts()
+		find_person().display_info()
 	elif user_in.lower() == 'c':
 		pass
 	else:
 		print('Invalid input please try again')
-		search()
+		display()
 
 def add_contact():
 	'''
@@ -64,6 +74,23 @@ def add_contact():
 	'''
 	pass
 
+def replace(file_path, pattern, subst, start = 0):
+	#Create temp file
+	fh, abs_path = mkstemp()
+	ctr =0
+	with os.fdopen(fh,'w') as new_file:
+		with open(file_path) as old_file:
+			for line in old_file:
+				if ctr>=start:
+					new_file.write(line.replace(pattern, subst))
+				else:
+					new_file.write(line)
+				ctr+=1
+    #Remove original file
+	os.remove(file_path)
+    #Move new file
+	move(abs_path, file_path)
+
 def edit():
 	'''
 	This function will perform any edits on an already existing
@@ -74,10 +101,41 @@ def edit():
 	names = []
 	for p in people_list:
 		names.append(p.get_name())
+
 	print('\n\n\n')
-	print('Here is the list of contacts:')
-	print(names)
-	print('Which one contact you like to edit: ')
+	print('Here is the list of contacts:\n')
+	for x,ele in enumerate(names,start=0):
+		print(x,ele)
+	user_in = input('\nWhich one contact you like to edit: ').strip()
+	person = people_list[int(user_in)]
+	print('Enter in new chances. Leave empty if no change.')
+	new_name = input('\n\nName: ').strip()
+	new_phone = input('\nPhone Number: ').strip()
+	new_email = input('\nEmail: ').strip()
+	new_address = input('\nAddress: ').strip()
+	new_birthday = input('\nBirthday: ').strip()
+	new_fav = input('\nFavorites(yes/no): ').strip().lower()
+
+	start = int(user_in)*6
+
+	dir_path = os.path.dirname(os.path.realpath(__file__))
+	os.chdir(dir_path)
+	file_path = os.path.abspath("contacts.txt")
+	if new_name!='':
+		replace(file_path,person.get_name(),new_name,start)
+	if new_phone!='':
+		replace(file_path,person.get_phone(),new_phone,start)
+	if new_email!='':
+		replace(file_path,person.get_email(),new_email,start)
+	if new_address!='':
+		replace(file_path,person.get_add(),new_address,start)
+	if new_birthday!='':
+		replace(file_path,person.get_birthday(),new_birthday,start)
+	if new_fav!='':
+		fav = 'yes' if person.get_fav()==True else 'no'	
+		replace(file_path,fav,new_fav,start)
+
+	parse_file()
 
 def askInput():
 	'''wywy
@@ -111,7 +169,7 @@ def run():
 	while(True):
 		user_in = askInput()
 		if user_in == '1':
-			search()
+			display()
 		elif user_in == '2':
 			add_contact()
 		elif user_in == '3':
@@ -130,7 +188,8 @@ def parse_file():
 	Parameter:	None
 	Return:	None
 	'''
-	
+	global people_list
+	people_list = []
 	with open('contacts.txt', 'r') as f:
 		f_contents = f.readlines()
 		while(len(f_contents)>5):
