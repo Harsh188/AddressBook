@@ -18,8 +18,31 @@
 #####################################################################
 
 from Person import Person
+from tempfile import mkstemp
+from shutil import move
+import os
 
 people_list = []
+
+def sort_contacts():
+	parse_file()
+	people_list.sort(key=lambda x: x.get_name())
+
+	dir_path = os.path.dirname(os.path.realpath(__file__))
+	os.chdir(dir_path)
+	file_path = os.path.abspath("contacts.txt")
+
+	#Create temp file
+	fh, abs_path = mkstemp()
+	with os.fdopen(fh,'w') as new_file:
+		for p in people_list:
+			info_list = p.get_info()
+			for x in info_list:
+				new_file.write(x)
+    #Remove original file
+	os.remove(file_path)
+    #Move new file
+	move(abs_path, file_path)
 
 def disp_fav():
 	'''
@@ -28,98 +51,104 @@ def disp_fav():
 	parameters: none
 	return: none
 	'''
+	string_output = ''
 	fav_list = list(filter(lambda p: p.get_fav()==True, people_list))
 	for f in fav_list:
-		f.display_info()
+		string_output+='\n\n'
+		string_output+='\n'.join(f.get_info())
+		string_output+='\n\n'
+	return string_output
 
-def search():
-	'''
-	This function will search the individuals name in the list
-	by performing a binary search.
-	Parameter:
-	Return:
-	'''
-	print('\n\n')
-	print("a. Display favorites")
-	print('b. Search by name')
-	print('c. Go Back')
-	user_in = input('\nWhat would you like to do?: ').strip()
-	if (user_in.lower() == 'a'):
-		disp_fav()
-	elif user_in.lower() == 'b':
-		pass
-	elif user_in.lower() == 'c':
-		pass
-	else:
-		print('Invalid input please try again')
-		search()
+def search(name):
+	person = search_name(name)
+	string_output = ''
+	string_output+='\n\n'
+	string_output+='\n'.join(person.get_info())
+	string_output+='\n\n' 
+	return string_output
 
-def add_contact():
+def search_name(name): 
+	'''
+	This program will perform a binary search to find
+	the person sent in through the parameter
+	Parameter: String name
+	Return: String
+	'''
+	arr = people_list
+	r = len(people_list)-1
+	l = 0
+	x = name
+	while l <= r:
+  
+		mid = l + (r - l)//2; 
+          
+        # Check if x is present at mid 
+		if arr[mid].get_name() == x:
+			return arr[mid]
+  
+        # If x is greater, ignore left half 
+		elif arr[mid].get_name() < x: 
+			l = mid + 1
+  
+        # If x is smaller, ignore right half 
+		else:
+			r = mid - 1
+      
+    # If we reach here, then the element 
+    # was not present 
+	return -1
+
+def add_contact(list_info):
 	'''
 	This function will add the contact to the already created list
 	of people and append the new contact member to the contacts.txt 
 	file.
-	Parameter:
-	Return:
+	Parameter: List of info
+	Return: none
 	'''
-	pass
+	f = open("contacts.txt","w")
+	for x in list_info:
+		f.write(x)
+	f.close()
 
-def edit():
+def replace(file_path, pattern, subst, start = 0):
+	#Create temp file
+	fh, abs_path = mkstemp()
+	ctr =0
+	with os.fdopen(fh,'w') as new_file:
+		with open(file_path) as old_file:
+			for line in old_file:
+				if ctr>=start:
+					new_file.write(line.replace(pattern, subst))
+				else:
+					new_file.write(line)
+				ctr+=1
+    #Remove original file
+	os.remove(file_path)
+    #Move new file
+	move(abs_path, file_path)
+
+def edit(name,list_info):
 	'''
 	This function will perform any edits on an already existing
 	contact member and then append it to the contacts.txt file.
-	Parameter:
-	Return:
+	Parameter: string name, list of information about contact
+	Return: none
 	'''
 	names = []
 	for p in people_list:
 		names.append(p.get_name())
-	print('\n\n\n')
-	print('Here is the list of contacts:')
-	print(names)
-	print('Which one contact you like to edit: ')
+	i = names.index(name)
+	start = i*6
 
-def askInput():
-	'''wywy
-	This function asks the user which action/service they would like
-	to perform.
-	Parameter:	None
-	Return:	None
-	'''
-	print('\n\n\n')
-	print("1. Search contact")
-	print("2. Add contact")
-	print("3. Edit contact")
-	print("Q  to Quit")
-	return input('\nWhat would you like to do?: ').strip()
-	print('\n\n')
+	dir_path = os.path.dirname(os.path.realpath(__file__))
+	os.chdir(dir_path)
+	file_path = os.path.abspath("contacts.txt")
 
-def run():
-	'''
-	The run function will be the soul opperator which runs the
-	program.
-	Parameter: None
-	Return:	None
-	'''
-	print('\n\n\n')
-	print('='*80)
-	print("Welcome to the addressbook")
-	print('This program stores all of your contacts so you ' \
-		+'will never forget them again!')
-	print('='*80)
-
-	while(True):
-		user_in = askInput()
-		if user_in == '1':
-			search()
-		elif user_in == '2':
-			add_contact()
-		elif user_in == '3':
-			edit()
-		elif user_in.lower() == 'q':
-			break
-		else:
-			print("Invalid input please try again!")
+	old_info = search_name(name).get_info()
+	for indx in range(0,6):
+			if list_info[indx] != '':
+				replace(file_path,old_info[indx],list_info[indx],start)
 
 def parse_file():
 	'''
@@ -130,7 +159,6 @@ def parse_file():
 	Parameter:	None
 	Return:	None
 	'''
-	
 	with open('contacts.txt', 'r') as f:
 		f_contents = f.readlines()
 		while(len(f_contents)>5):
@@ -149,4 +177,4 @@ def parse_file():
 
 if __name__ == '__main__':
 	parse_file()
-	run()
+	# run()
