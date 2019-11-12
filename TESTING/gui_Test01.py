@@ -34,7 +34,7 @@ Label(window, text="\nDefinition", bg="black", fg="white", font="none 24 bold").
 output = Text(window, width=75, height=6, wrap=WORD, background="white")
 output.grid(row=5, columnspan=2, sticky=W)
 
-my_compdictionary = {"chakka": "abdul", "gandu": "Ass tit wah"}
+my_compdictionary = {}
 
 window.mainloop()
 
