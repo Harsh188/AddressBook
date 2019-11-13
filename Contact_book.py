@@ -25,29 +25,7 @@ import os
 people_list = []
 
 def sort_contacts():
-<<<<<<< HEAD
 	pass
-=======
-	parse_file()
-	people_list.sort(key=lambda x: x.get_name())
-
-	dir_path = os.path.dirname(os.path.realpath(__file__))
-	os.chdir(dir_path)
-	file_path = os.path.abspath("contacts.txt")
-
-	#Create temp file
-	fh, abs_path = mkstemp()
-	with os.fdopen(fh,'w') as new_file:
-		for p in people_list:
-			info_list = p.get_info()
-			for x in info_list:
-				new_file.write(x+'\n')
-    #Remove original file
-	os.remove(file_path)
-    #Move new file
-	move(abs_path, file_path)
-	parse_file()
->>>>>>> 8b324ee26dd3cd9c32204c7d1617ef40c2e63399
 
 def disp_fav():
 	'''
@@ -56,38 +34,20 @@ def disp_fav():
 	parameters: none
 	return: none
 	'''
-	sort_contacts()
-	string_output = ''
 	fav_list = list(filter(lambda p: p.get_fav()==True, people_list))
 	for f in fav_list:
-		string_output+='\n\n'
-		string_output+='\n'.join(f.get_info())
-		string_output+='\n\n'
-	return string_output
+		f.display_info()
 
-<<<<<<< HEAD
 def find_person():
 	pass
 
 def display():
-=======
-def search(name):
-	person = search_name(name)
-	string_output = ''
-	string_output+='\n\n'
-	string_output+='\n'.join(person.get_info())
-	string_output+='\n\n' 
-	return string_output
-
-def search_name(name): 
->>>>>>> 8b324ee26dd3cd9c32204c7d1617ef40c2e63399
 	'''
-	This program will perform a binary search to find
-	the person sent in through the parameter
-	Parameter: String name
-	Return: String
+	This function will search the individuals name in the list
+	by performing a binary search.
+	Parameter:
+	Return:
 	'''
-<<<<<<< HEAD
 	print('\n\n')
 	print("a. Display favorites")
 	print('b. Search by name')
@@ -105,45 +65,14 @@ def search_name(name):
 		display()
 
 def add_contact():
-=======
-	sort_contacts()
-	arr = people_list
-	r = len(people_list)-1
-	l = 0
-	x = name
-	while l <= r:
-  
-		mid = l + (r - l)//2; 
-          
-        # Check if x is present at mid 
-		if arr[mid].get_name() == x:
-			return arr[mid]
-  
-        # If x is greater, ignore left half 
-		elif arr[mid].get_name() < x: 
-			l = mid + 1
-  
-        # If x is smaller, ignore right half 
-		else:
-			r = mid - 1
-      
-    # If we reach here, then the element 
-    # was not present 
-	return -1
-
-def add_contact(list_info):
->>>>>>> 8b324ee26dd3cd9c32204c7d1617ef40c2e63399
 	'''
 	This function will add the contact to the already created list
 	of people and append the new contact member to the contacts.txt 
 	file.
-	Parameter: List of info
-	Return: none
+	Parameter:
+	Return:
 	'''
-	f = open("contacts.txt","a")
-	for x in list_info:
-		f.write(x+'\n')
-	f.close()
+	pass
 
 def replace(file_path, pattern, subst, start = 0):
 	#Create temp file
@@ -162,22 +91,16 @@ def replace(file_path, pattern, subst, start = 0):
     #Move new file
 	move(abs_path, file_path)
 
-<<<<<<< HEAD
 def edit():
-=======
-def edit(name,list_info):
->>>>>>> 8b324ee26dd3cd9c32204c7d1617ef40c2e63399
 	'''
 	This function will perform any edits on an already existing
 	contact member and then append it to the contacts.txt file.
-	Parameter: string name, list of information about contact
-	Return: none
+	Parameter:
+	Return:
 	'''
-	sort_contacts()
 	names = []
 	for p in people_list:
 		names.append(p.get_name())
-<<<<<<< HEAD
 
 	print('\n\n\n')
 	print('Here is the list of contacts:\n')
@@ -194,15 +117,10 @@ def edit(name,list_info):
 	new_fav = input('\nFavorites(yes/no): ').strip().lower()
 
 	start = int(user_in)*6
-=======
-	i = names.index(name)
-	start = i*6
->>>>>>> 8b324ee26dd3cd9c32204c7d1617ef40c2e63399
 
 	dir_path = os.path.dirname(os.path.realpath(__file__))
 	os.chdir(dir_path)
 	file_path = os.path.abspath("contacts.txt")
-<<<<<<< HEAD
 	if new_name!='':
 		replace(file_path,person.get_name(),new_name,start)
 	if new_phone!='':
@@ -260,13 +178,6 @@ def run():
 			break
 		else:
 			print("Invalid input please try again!")
-=======
-
-	old_info = search_name(name).get_info()
-	for indx in range(0,6):
-			if list_info[indx] != '':
-				replace(file_path,old_info[indx],list_info[indx],start)
->>>>>>> 8b324ee26dd3cd9c32204c7d1617ef40c2e63399
 
 def parse_file():
 	'''
@@ -296,4 +207,5 @@ def parse_file():
 #####################################################################
 
 if __name__ == '__main__':
-	pass
+	parse_file()
+	run()
