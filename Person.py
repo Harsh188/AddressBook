@@ -53,12 +53,9 @@ class Person:
 		'''
 		return self.fav
 
-<<<<<<< HEAD
-
 	def display_info(self):
 =======
 	def get_info(self):
->>>>>>> 8b324ee26dd3cd9c32204c7d1617ef40c2e63399
 		'''
 		This method will display all of the information which is contained
 		about the person
