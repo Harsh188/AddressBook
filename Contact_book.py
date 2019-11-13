@@ -55,18 +55,26 @@ def disp_fav():
 	sort_contacts()
 	string_output = ''
 	fav_list = list(filter(lambda p: p.get_fav()==True, people_list))
+	if len(fav_list)==0:
+		return '\n\nYou have no favorite contacts!'
 	for f in fav_list:
 		string_output+='\n\n'
 		string_output+='\n'.join(f.get_info())
 		string_output+='\n\n'
+		pass
 	return string_output
 
 def search(name):
-	person = search_name(name)
 	string_output = ''
-	string_output+='\n\n'
-	string_output+='\n'.join(person.get_info())
-	string_output+='\n\n' 
+	try:
+		person = search_name(name)
+		string_output+='\n\n'
+		string_output+='\n'.join(person.get_info())
+		string_output+='\n\n'
+	except:
+		string_output+='\n\n'
+		string_output+='CONTACT NOT FOUND! Please try again'
+		string_output+='\n\n'
 	return string_output
 
 def search_name(name): 
