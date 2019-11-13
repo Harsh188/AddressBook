@@ -9,8 +9,8 @@ def click():
     bw1.place(relwidth=0.1,relheight=.1,relx=.45,rely=.8)
 
 
-HEIGHT = 400
-WIDTH = 400
+HEIGHT = 600
+WIDTH = 800
 
 
 root = tk.Tk()

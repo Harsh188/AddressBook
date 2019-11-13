@@ -7,12 +7,11 @@ class SampleApp(tk.Tk):
         tk.Tk.__init__(self, *args, **kwargs)
 
         self.title_font = tkfont.Font(
-            family="Helvetica", size=18, weight="bold", slant="italic"
+            family="Helvetica", size=24, weight="bold", slant="italic"
         )
         self.title("ADDRESS-BOOK")
-        # the container is where we'll stack a bunch of frames
-        # on top of each other, then the one we want visible
-        # will be raised above the others
+        self.geometry("800x600")
+
         container = tk.Frame(self)
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
@@ -23,15 +22,12 @@ class SampleApp(tk.Tk):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
-            # put all of the pages in the same location;
-            # the one on the top of the stacking order
-            # will be the one that is visible.
+
             frame.grid(row=0, column=0, sticky="nsew")
 
         self.show_frame("StartPage")
 
     def show_frame(self, page_name):
-        """Show a frame for the given page name"""
         frame = self.frames[page_name]
         frame.tkraise()
 
@@ -40,6 +36,7 @@ class StartPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+        self.config(bg="#420666")
         label = tk.Label(self, text="Address Book", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
@@ -57,23 +54,37 @@ class StartPage(tk.Frame):
             command=lambda: controller.show_frame("PageThree"),
         )
 
-        button1.pack()
-        button2.pack()
-        button3.pack()
+        button1.place(relx=0.25, rely=0.2, relwidth=0.5, relheight=0.2)
+        button2.place(relx=0.25, rely=0.45, relwidth=0.5, relheight=0.2)
+        button3.place(relx=0.25, rely=0.7, relwidth=0.5, relheight=0.2)
 
 
 class PageOne(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        label = tk.Label(self, text="This is page 1", font=controller.title_font)
-        label.pack(side="top", fill="x", pady=10)
+        label = tk.Label(self, text="Get Contact", font=controller.title_font)
+        label.place(relx=0.25, rely=0.05, relheight=0.06, relwidth=0.5)
+
+        textentry = tk.Entry(self, width=20, bg="yellow")
+        textentry.place(relx=0.30, rely=0.25, relwidth=0.4, relheight=0.05)
+
+        output1 = tk.Text(self, background="white")
+        output1.place(relx=0.1, rely=0.5, relwidth=0.8, relheight=0.3)
+
+        b2 = tk.Button(self, text="Get Contact")
+        b2.place(relx=0.35, rely=0.35, relwidth=0.15, relheight=0.05)
+
+        b3 = tk.Button(self, text="Get Favourites")
+        b3.place(relx=0.5, rely=0.35, relwidth=0.15, relheight=0.05)
+
         button = tk.Button(
             self,
             text="Go to the start page",
             command=lambda: controller.show_frame("StartPage"),
         )
-        button.pack()
+        button.place(relx=0.1
+        , rely=0.85, relwidth=0.15, relheight=0.05)
 
 
 class PageTwo(tk.Frame):
