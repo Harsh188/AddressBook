@@ -53,18 +53,17 @@ class Person:
 		'''
 		return self.fav
 
+<<<<<<< HEAD
 
 	def display_info(self):
+=======
+	def get_info(self):
+>>>>>>> 8b324ee26dd3cd9c32204c7d1617ef40c2e63399
 		'''
 		This method will display all of the information which is contained
 		about the person
 		Parameters: none
-		Returns: none
+		Returns: all info in a list
 		'''
-		print('\n\n\n')
-		print("Name:			",self.name)
-		print('Phone Number:		',self.phone)
-		print('Email:			',self.email)
-		print('Residential address:	',self.address)
-		print('Birthday:		',self.birthday[0:2]+'/'+self.birthday[2:4]+'/'+self.birthday[4:])
-		print('\n\n\n')
+		return [self.name,self.phone,self.email,self.address,self.birthday, 'yes' if self.fav==True else 'no']
+		
