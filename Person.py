@@ -32,19 +32,7 @@ class Person:
 		Returns: 	name of individual
 		'''
 		return self.name
-
-	def get_phone(self):
-		return self.phone
-
-	def get_email(self):
-		return self.email
-
-	def get_add(self):
-		return self.address
 	
-	def get_birthday(self):
-		return self.birthday
-
 	def get_fav(self):
 		'''
 		The get_fav function is used to access the if the individual
@@ -53,8 +41,6 @@ class Person:
 		'''
 		return self.fav
 
-	def display_info(self):
-=======
 	def get_info(self):
 		'''
 		This method will display all of the information which is contained
@@ -63,4 +49,3 @@ class Person:
 		Returns: all info in a list
 		'''
 		return [self.name,self.phone,self.email,self.address,self.birthday, 'yes' if self.fav==True else 'no']
-		
