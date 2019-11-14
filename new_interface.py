@@ -8,7 +8,7 @@ root.title("ADDRESS-BOOK")
 canvas = tk.Canvas(root, height=600, width=800)
 canvas.pack()
 
-f1 = tk.Frame(root, bg="#373737", bd=5)
+f1 = tk.Frame(canvas, bg="#373737", bd=5)
 f1.place(relwidth=0.25, relheight=1)
 
 textentry1 = tk.Entry(f1, width=20, bg="#ffffff")
@@ -28,7 +28,7 @@ lbx.config(yscrollcommand=sbr.set)
 for data in range(100):
     lbx.insert(data,"Sample data"+str(data+1))
 
-f2 = tk.Frame(root, bg="#2a2a2a", bd=5)
+f2 = tk.Frame(canvas, bg="#2a2a2a", bd=5)
 f2.place(relx = 0.25,relwidth=0.75, relheight=1)
 
 root.mainloop()
