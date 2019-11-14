@@ -2,14 +2,14 @@ import tkinter as tk
 from tkinter import font as tkfont
 import Contact_book as cb
 
-class SampleApp(tk.Tk):
+class AddressBook(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
 
         self.title_font = tkfont.Font(
             family="Helvetica", size=24, weight="bold", slant="italic"
         )
-        self.title("ADDRESS-BOOK")
+        self.title("Contacts")
         self.geometry("800x600")
 
         container = tk.Frame(self)
@@ -103,8 +103,11 @@ class SearchPage(tk.Frame):
 class AddContact(tk.Frame):
 
     def call_add(self, list_info):
-
         cb.add_contact(list_info)
+        info = 'Successful'
+        output1 = tk.Text(self, background="white")
+        output1.place(relx=0.3, rely=0.7, relwidth=0.4, relheight=0.15)
+        output1.insert(tk.END, info)
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -147,6 +150,18 @@ class AddContact(tk.Frame):
         , rely=0.85, relwidth=0.15, relheight=0.05)
 
 class EditPage(tk.Frame):
+
+    def edit(self,name,list_info):
+        try:
+            cb.edit(name,list_info)
+            info = 'Successful'
+        except:
+            info = 'Unccessful try again'
+        
+        output1 = tk.Text(self, background="white")
+        output1.place(relx=0.3, rely=0.7, relwidth=0.4, relheight=0.15)
+        output1.insert(tk.END, info)
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.config(bg="#9c33ff")
@@ -163,6 +178,30 @@ class EditPage(tk.Frame):
         button.place(relx=0.1
         , rely=0.85, relwidth=0.15, relheight=0.05)
 
+        name = tk.Entry(self, width=20, bg="yellow")
+        name.insert(0, 'Enter Name')
+        name.place(relx=0.30, rely=0.25, relwidth=0.4, relheight=0.05)
+        phone = tk.Entry(self, width=20, bg="yellow")
+        phone.insert(0, 'Enter Phone Number')
+        phone.place(relx=0.30, rely=0.30, relwidth=0.4, relheight=0.05)
+        email = tk.Entry(self, width=20, bg="yellow")
+        email.insert(0, 'Enter Email')
+        email.place(relx=0.30, rely=0.35, relwidth=0.4, relheight=0.05)
+        addy = tk.Entry(self, width=20, bg="yellow")
+        addy.insert(0, 'Enter Address')
+        addy.place(relx=0.30, rely=0.40, relwidth=0.4, relheight=0.05)
+        bd = tk.Entry(self, width=20, bg="yellow")
+        bd.insert(0, 'Enter Birthday')
+        bd.place(relx=0.30, rely=0.45, relwidth=0.4, relheight=0.05)
+        fav = tk.Entry(self, width=20, bg="yellow")
+        fav.insert(0, 'Enter if Favourite(yes/no)')
+        fav.place(relx=0.30, rely=0.50, relwidth=0.4, relheight=0.05)
+
+        b2 = tk.Button(self, text="Edit Contact", command = lambda: self.edit( \
+            name.get(), [name.get(),phone.get(),email.get(),addy.get(),\
+            bd.get(),fav.get()]))
+        b2.place(relx=0.42, rely=0.60, relwidth=0.15, relheight=0.05)
+
 if __name__ == "__main__":
-    app = SampleApp()
+    app = AddressBook()
     app.mainloop()
