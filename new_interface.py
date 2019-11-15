@@ -4,25 +4,48 @@ import Contact_book as cb
 
 
 def disp_info_fav():
-    info = cb.disp_fav()
+	info = cb.disp_fav()
     # print(info)
     # output1.delete(0.0, END)
-    output1.insert(tk.END, info)
-    print(output1.get('1.0',tk.END))
-
-def disp_info_name(name):
-	info = cb.search(name)
+	output1.delete(1.0,tk.END)
 	output1.insert(tk.END, info)
+	# print(output1.get('1.0',tk.END))
+
+def disp_info_name(evt):
+	# get selected line index
+    index = lbx.curselection()
+    # get the line's text
+    seltext = lbx.get(index)
+    # print(seltext)
+    info = cb.search(seltext)
+    output1.delete(1.0,tk.END)
+    output1.insert(tk.END,info)
 
 def call_add(list_info):
-        cb.add_contact(list_info)
+		cb.add_contact(list_info)
 
 def call_edit():
 	pass
 
-def callback(sv):
-    print (sv.get())
+def name_search(sv):
+	try:
+		lbx.delete(0,tk.END)
+	except:
+		pass
+	name = sv.get()
+	names = cb.get_names(name)
+	# print(names)
+	for n,name in enumerate(names):
+		# print(n, name)
+		lbx.insert(n,name)
 
+def initial_listbox():
+	name = ' '
+	names = cb.get_names(name)
+	# print(names)
+	for n,name in enumerate(names):
+		# print(n, name)
+		lbx.insert(n,name)
 
 root = tk.Tk()
 root.title("ADDRESS-BOOK")
@@ -35,25 +58,24 @@ f1 = tk.Frame(canvas, bg="#373737", bd=5)
 f1.place(relwidth=0.25, relheight=1)
 
 sv = tk.StringVar()
-sv.trace("w", lambda name, index, mode, sv=sv: callback(sv))
+sv.trace("w", lambda name, index, mode, sv=sv: name_search(sv))
 
 textentry1 = tk.Entry(f1, width=20, bg="#ffffff",textvariable=sv)
-textentry1.insert(0, "Enter Name")
+textentry1.insert(0, " ")
 textentry1.place(relx=0.039, rely=0.04, relwidth=0.925, relheight=0.035)
 textentry1.pack()
 
-lbx = tk.Listbox(f1, background="#373737", fg="white")
+lbx = tk.Listbox(f1, background="#373737", fg="white",selectmode = tk.SINGLE)
 lbx.place(relx=0.039, rely=0.125, relwidth=0.925, relheight=0.9)
 lbx.config(borderwidth=0)
+initial_listbox()
+lbx.bind('<<ListboxSelect>>', disp_info_name)
 
 sbr = tk.Scrollbar(lbx)
 sbr.pack(side="right", fill="y")
 
 sbr.config(command=lbx.yview)
 lbx.config(yscrollcommand=sbr.set)
-
-for data in range(100):
-    lbx.insert(data, "Sample data" + str(data + 1))
 
 f2 = tk.Frame(canvas, bg="#2a2a2a", bd=5)
 f2.place(relx=0.25, relwidth=0.75, relheight=1)
