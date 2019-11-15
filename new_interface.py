@@ -39,7 +39,7 @@ f2.place(relx=0.25, relwidth=0.75, relheight=1)
 output1 = tk.Text(f2, background="#2a2a2a", fg="white")
 output1.place(relx=0.1, rely=0, relwidth=0.8, relheight=0.85)
 
-b1 = tk.Button(f2, text="+", font=("Helvetica", "24"))
+b1 = tk.Button(f2, text="+", font=("Helvetica", "24"),command=lambda:lift_frame(f4))
 b1.place(relx=0.06, rely=0.928, relwidth=0.0655, relheight=0.045)
 
 b2 = tk.Button(f2, text="Edit", font=("Helvetica", "16"),command=lambda:lift_frame(f3))
@@ -56,6 +56,12 @@ f3 = tk.Frame(canvas, bg="#3f3f3f", bd=5)
 f3.place(relx=0.25, relwidth=0.75, relheight=1)
 
 b4 = tk.Button(f3, text="Back", font=("Helvetica", "8"),command=lambda:lift_frame(f2))
+b4.place(relx=0.85, rely=0.928, relwidth=0.0655, relheight=0.045)
+
+f4 = tk.Frame(canvas, bg="yellow", bd=5)
+f4.place(relx=0.25, relwidth=0.75, relheight=1)
+
+b4 = tk.Button(f4, text="Back", font=("Helvetica", "8"),command=lambda:lift_frame(f2))
 b4.place(relx=0.85, rely=0.928, relwidth=0.0655, relheight=0.045)
 
 
