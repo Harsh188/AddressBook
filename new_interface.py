@@ -9,6 +9,7 @@ def lift_frame(frame_name):
 
 root = tk.Tk()
 root.title("ADDRESS-BOOK")
+root.geometry("800x600")
 
 canvas = tk.Canvas(root, height=600, width=800)
 canvas.place(relwidth=1, relheight=1)
@@ -65,6 +66,29 @@ b4 = tk.Button(f4, text="Back", font=("Helvetica", "8"),command=lambda:lift_fram
 b4.place(relx=0.85, rely=0.928, relwidth=0.0655, relheight=0.045)
 
 
+name = tk.Entry(f4, width=20, bg="yellow")
+name.insert(0, 'Enter Name')
+name.place(relx=0.30, rely=0.25, relwidth=0.4, relheight=0.05)
+phone = tk.Entry(f4, width=20, bg="yellow")
+phone.insert(0, 'Enter Phone Number')
+phone.place(relx=0.30, rely=0.30, relwidth=0.4, relheight=0.05)
+email = tk.Entry(f4, width=20, bg="yellow")
+email.insert(0, 'Enter Email')
+email.place(relx=0.30, rely=0.35, relwidth=0.4, relheight=0.05)
+addy = tk.Entry(f4, width=20, bg="yellow")
+addy.insert(0, 'Enter Address')
+addy.place(relx=0.30, rely=0.40, relwidth=0.4, relheight=0.05)
+bd = tk.Entry(f4, width=20, bg="yellow")
+bd.insert(0, 'Enter Birthday')
+bd.place(relx=0.30, rely=0.45, relwidth=0.4, relheight=0.05)
+fav = tk.Entry(f4, width=20, bg="yellow")
+fav.insert(0, 'Enter if Favourite(yes/no)')
+fav.place(relx=0.30, rely=0.50, relwidth=0.4, relheight=0.05)
+
+b5 = tk.Button(f4, text="Add Contact",command = lambda: cb.call_add([name.get(), \
+            phone.get(),email.get(),addy.get(),bd.get(),fav.get()]))
+b5.place(relx=0.42, rely=0.60, relwidth=0.15, relheight=0.05)
+    
 
 
 f2.lift()
