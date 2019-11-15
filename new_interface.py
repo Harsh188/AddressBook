@@ -23,6 +23,7 @@ def call_edit():
 def callback(sv):
     print (sv.get())
 
+
 root = tk.Tk()
 root.title("ADDRESS-BOOK")
 root.geometry("800x600")
@@ -76,5 +77,9 @@ b1.config(bg="#a8a8a8", fg="white")
 b2.config(bg="#a8a8a8", fg="white")
 b3.config(bg="#a8a8a8", fg="white")
 
+#####################################################################
+#	Driver Code								
+#####################################################################
 
-root.mainloop()
+if __name__ == "__main__":
+	root.mainloop()
