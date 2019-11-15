@@ -2,11 +2,9 @@ import tkinter as tk
 from tkinter import font as tkfont
 import Contact_book as cb
 
+def lift_frame(frame_name):
+    frame_name.lift()
 
-def disp_info_fav():
-    info = cb.disp_fav()
-    output1.delete(0.0, END)
-    output1.insert(END, info)
 
 
 root = tk.Tk()
@@ -44,17 +42,27 @@ output1.place(relx=0.1, rely=0, relwidth=0.8, relheight=0.85)
 b1 = tk.Button(f2, text="+", font=("Helvetica", "24"))
 b1.place(relx=0.06, rely=0.928, relwidth=0.0655, relheight=0.045)
 
-b2 = tk.Button(f2, text="Edit", font=("Helvetica", "16"))
+b2 = tk.Button(f2, text="Edit", font=("Helvetica", "16"),command=lambda:lift_frame(f3))
 b2.place(relx=0.75, rely=0.928, relwidth=0.0655, relheight=0.045)
 
-b3 = tk.Button(
-    f2, text="Favourites", font=("Helvetica", "8"), command=lambda: disp_info_fav()
-)
+b3 = tk.Button(f2, text="Favourites", font=("Helvetica", "8"))
 b3.place(relx=0.85, rely=0.928, relwidth=0.0655, relheight=0.045)
 
 b1.config(bg="#a8a8a8", fg="white")
 b2.config(bg="#a8a8a8", fg="white")
 b3.config(bg="#a8a8a8", fg="white")
+
+f3 = tk.Frame(canvas, bg="#3f3f3f", bd=5)
+f3.place(relx=0.25, relwidth=0.75, relheight=1)
+
+b4 = tk.Button(f3, text="Back", font=("Helvetica", "8"),command=lambda:lift_frame(f2))
+b4.place(relx=0.85, rely=0.928, relwidth=0.0655, relheight=0.045)
+
+
+
+
+f2.lift()
+
 
 
 root.mainloop()
