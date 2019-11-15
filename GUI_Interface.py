@@ -103,7 +103,6 @@ class SearchPage(tk.Frame):
 class AddContact(tk.Frame):
 
     def call_add(self, list_info):
-
         cb.add_contact(list_info)
 
     def __init__(self, parent, controller):
