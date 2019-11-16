@@ -162,6 +162,14 @@ def edit(name,list_info):
 			if list_info[indx] != '':
 				replace(file_path,old_info[indx],list_info[indx],start)
 
+def get_names(word):
+	sort_contacts()
+	names = []
+	for p in people_list:
+		if word.lower() in p.get_name().lower():
+			names.append(p.get_name())
+	return (names)
+
 def parse_file():
 	'''
 	This function will read the contacts.txt file and then parse
