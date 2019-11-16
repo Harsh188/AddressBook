@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import font as tkfont
 import Contact_book as cb
 
-
 def lift_frame(frame_name):
     frame_name.lift()
 
@@ -63,7 +62,7 @@ f1.place(relwidth=0.25, relheight=1)
 sv = tk.StringVar()
 sv.trace("w", lambda name, index, mode, sv=sv: name_search(sv))
 
-textentry1 = tk.Entry(f1, width=20, bg="grey",textvariable=sv)
+textentry1 = tk.Entry(f1, width=20, bg="grey",textvariable=sv,highlightbackground="grey")
 textentry1.insert(0, "Enter Name")
 textentry1.place(relx=0.039, rely=0.04, relwidth=0.925, relheight=0.035)
 textentry1.pack()
@@ -86,30 +85,33 @@ f2.place(relx=0.25, relwidth=0.75, relheight=1)
 output1 = tk.Text(f2, background="#2a2a2a", fg="white")
 output1.place(relx=0.1, rely=0, relwidth=0.8, relheight=0.85)
 
-b1 = tk.Button(f2, text="+", font=("Helvetica", "24"), command=lambda: lift_frame(f4))
+b1 = tk.Button(f2, text="+", font=("Helvetica", "24"), fg= 'grey', command=lambda: lift_frame(f4))
 b1.place(relx=0.06, rely=0.928, relwidth=0.0655, relheight=0.045)
 
-b2 = tk.Button(f2, text="Edit", font=("Helvetica", "16"), command=lambda: lift_frame(f3))
+b2 = tk.Button(f2, text="Edit", font=("Helvetica", "12"), command=lambda: lift_frame(f3))
 b2.place(relx=0.75, rely=0.928, relwidth=0.0655, relheight=0.045)
 
-b3 = tk.Button(f2, text="Fav", font=("Helvetica", "16"), command=lambda: disp_info_fav())
+b3 = tk.Button(f2, text="Fav", font=("Helvetica", "12"), command=lambda: disp_info_fav())
 b3.place(relx=0.85, rely=0.928, relwidth=0.0655, relheight=0.045)
 
-b1.config(bg="#a8a8a8", fg="white")
-b2.config(bg="#a8a8a8", fg="white")
-b3.config(bg="#a8a8a8", fg="white")
+b1.config(highlightbackground="grey", bg = 'grey', fg="black")
+b2.config(highlightbackground="grey", bg = 'grey', fg="black")
+b3.config(highlightbackground="grey", bg = 'grey', fg="black")
 
 f3 = tk.Frame(canvas, bg="#3f3f3f", bd=5)
 f3.place(relx=0.25, relwidth=0.75, relheight=1)
 
-b4 = tk.Button(f3, text="Back", font=("Helvetica", "8"), command=lambda: lift_frame(f2))
+b4 = tk.Button(f3, text="Back", font=("Helvetica", "12"), command=lambda: lift_frame(f2))
 b4.place(relx=0.85, rely=0.928, relwidth=0.0655, relheight=0.045)
+b4.config(highlightbackground="grey", bg = 'grey',fg='black')
 
 f4 = tk.Frame(canvas, bg="#373737", bd=5)
 f4.place(relx=0.25, relwidth=0.75, relheight=1)
 
-b4 = tk.Button(f4, text="Back", font=("Helvetica", "8"), command=lambda: lift_frame(f2))
+b4 = tk.Button(f4, text="Back", font=("Helvetica", "12"), command=lambda: lift_frame(f2))
 b4.place(relx=0.85, rely=0.928, relwidth=0.0655, relheight=0.045)
+
+b4.config(highlightbackground="grey", bg = 'grey',fg='black')
 
 b5 = tk.Button(
     f4,
@@ -119,7 +121,6 @@ b5 = tk.Button(
     ),
 )
 b5.place(relx=0.42, rely=0.60, relwidth=0.15, relheight=0.05)
-
 
 f2.lift()
 
