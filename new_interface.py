@@ -51,7 +51,7 @@ def initial_listbox():
 		lbx.insert(n,name)
 
 root = tk.Tk()
-root.title("ADDRESS-BOOK")
+root.title("Contacts")
 root.geometry("800x600")
 
 canvas = tk.Canvas(root, height=600, width=600)
@@ -63,8 +63,8 @@ f1.place(relwidth=0.25, relheight=1)
 sv = tk.StringVar()
 sv.trace("w", lambda name, index, mode, sv=sv: name_search(sv))
 
-textentry1 = tk.Entry(f1, width=20, bg="#ffffff",textvariable=sv)
-textentry1.insert(0, " ")
+textentry1 = tk.Entry(f1, width=20, bg="grey",textvariable=sv)
+textentry1.insert(0, "Enter Name")
 textentry1.place(relx=0.039, rely=0.04, relwidth=0.925, relheight=0.035)
 textentry1.pack()
 
@@ -89,10 +89,10 @@ output1.place(relx=0.1, rely=0, relwidth=0.8, relheight=0.85)
 b1 = tk.Button(f2, text="+", font=("Helvetica", "24"), command=lambda: lift_frame(f4))
 b1.place(relx=0.06, rely=0.928, relwidth=0.0655, relheight=0.045)
 
-b2 = tk.Button(f2, text="Edit", font=("Helvetica", "8"), command=lambda: lift_frame(f3))
+b2 = tk.Button(f2, text="Edit", font=("Helvetica", "16"), command=lambda: lift_frame(f3))
 b2.place(relx=0.75, rely=0.928, relwidth=0.0655, relheight=0.045)
 
-b3 = tk.Button(f2, text="Favourites", font=("Helvetica", "8"))
+b3 = tk.Button(f2, text="Fav", font=("Helvetica", "16"), command=lambda: disp_info_fav())
 b3.place(relx=0.85, rely=0.928, relwidth=0.0655, relheight=0.045)
 
 b1.config(bg="#a8a8a8", fg="white")
@@ -110,26 +110,6 @@ f4.place(relx=0.25, relwidth=0.75, relheight=1)
 
 b4 = tk.Button(f4, text="Back", font=("Helvetica", "8"), command=lambda: lift_frame(f2))
 b4.place(relx=0.85, rely=0.928, relwidth=0.0655, relheight=0.045)
-
-
-name = tk.Entry(f4, width=20, bg="yellow")
-name.insert(0, "Enter Name")
-name.place(relx=0.30, rely=0.25, relwidth=0.4, relheight=0.05)
-phone = tk.Entry(f4, width=20, bg="yellow")
-phone.insert(0, "Enter Phone Number")
-phone.place(relx=0.30, rely=0.30, relwidth=0.4, relheight=0.05)
-email = tk.Entry(f4, width=20, bg="yellow")
-email.insert(0, "Enter Email")
-email.place(relx=0.30, rely=0.35, relwidth=0.4, relheight=0.05)
-addy = tk.Entry(f4, width=20, bg="yellow")
-addy.insert(0, "Enter Address")
-addy.place(relx=0.30, rely=0.40, relwidth=0.4, relheight=0.05)
-bd = tk.Entry(f4, width=20, bg="yellow")
-bd.insert(0, "Enter Birthday")
-bd.place(relx=0.30, rely=0.45, relwidth=0.4, relheight=0.05)
-fav = tk.Entry(f4, width=20, bg="yellow")
-fav.insert(0, "Enter if Favourite(yes/no)")
-fav.place(relx=0.30, rely=0.50, relwidth=0.4, relheight=0.05)
 
 b5 = tk.Button(
     f4,
