@@ -42,12 +42,19 @@ def name_search(sv):
 		lbx.insert(n,name)
 
 def initial_listbox():
+	try:
+		lbx.delete(0,tk.END)
+	except:
+		pass
 	name = ' '
 	names = cb.get_names(name)
 	# print(names)
 	for n,name in enumerate(names):
 		# print(n, name)
 		lbx.insert(n,name)
+def call_add(list_info):
+	cb.add_contact(list_info)
+	initial_listbox()
 
 root = tk.Tk()
 root.title("Contacts")
@@ -67,7 +74,7 @@ textentry1.insert(0, "Enter Name")
 textentry1.place(relx=0.039, rely=0.04, relwidth=0.925, relheight=0.035)
 textentry1.pack()
 
-lbx = tk.Listbox(f1, background="#373737", fg="white",selectmode = tk.SINGLE)
+lbx = tk.Listbox(f1, background="#373737", fg="white", selectbackground = 'blue',selectmode = tk.SINGLE)
 lbx.place(relx=0.039, rely=0.125, relwidth=0.925, relheight=0.9)
 lbx.config(borderwidth=0)
 initial_listbox()
@@ -113,10 +120,29 @@ b4.place(relx=0.85, rely=0.928, relwidth=0.0655, relheight=0.045)
 
 b4.config(highlightbackground="grey", bg = 'grey',fg='black')
 
+name = tk.Entry(f4, width=20, bg="grey",highlightbackground='white')
+name.insert(0, "Enter Name")
+name.place(relx=0.30, rely=0.25, relwidth=0.4, relheight=0.05)
+phone = tk.Entry(f4, width=20, bg="grey",highlightbackground='white')
+phone.insert(0, "Enter Phone Number")
+phone.place(relx=0.30, rely=0.30, relwidth=0.4, relheight=0.05)
+email = tk.Entry(f4, width=20, bg="grey",highlightbackground='white')
+email.insert(0, "Enter Email")
+email.place(relx=0.30, rely=0.35, relwidth=0.4, relheight=0.05)
+addy = tk.Entry(f4, width=20, bg="grey",highlightbackground='white')
+addy.insert(0, "Enter Address")
+addy.place(relx=0.30, rely=0.40, relwidth=0.4, relheight=0.05)
+bd = tk.Entry(f4, width=20, bg="grey",highlightbackground='white')
+bd.insert(0, "Enter Birthday")
+bd.place(relx=0.30, rely=0.45, relwidth=0.4, relheight=0.05)
+fav = tk.Entry(f4, width=20, bg="grey",highlightbackground='white')
+fav.insert(0, "Enter if Favourite(yes/no)")
+fav.place(relx=0.30, rely=0.50, relwidth=0.4, relheight=0.05)
+
 b5 = tk.Button(
     f4,
     text="Add Contact",
-    command=lambda: cb.call_add(
+    command=lambda: call_add(
         [name.get(), phone.get(), email.get(), addy.get(), bd.get(), fav.get()]
     ),
 )
