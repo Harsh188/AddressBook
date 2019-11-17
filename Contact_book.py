@@ -121,6 +121,7 @@ def add_contact(list_info):
 	for x in list_info:
 		f.write(x+'\n')
 	f.close()
+	sort_contacts()
 
 def replace(file_path, pattern, subst, start = 0):
 	#Create temp file
