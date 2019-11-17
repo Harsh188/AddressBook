@@ -142,6 +142,7 @@ fav.place(relx=0.30, rely=0.50, relwidth=0.4, relheight=0.05)
 b5 = tk.Button(
     f4,
     text="Add Contact",
+    highlightbackground = 'grey',
     command=lambda: call_add(
         [name.get(), phone.get(), email.get(), addy.get(), bd.get(), fav.get()]
     ),
