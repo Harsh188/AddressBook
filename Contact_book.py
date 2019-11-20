@@ -59,7 +59,13 @@ def disp_fav():
 		return '\n\nYou have no favorite contacts!'
 	for f in fav_list:
 		string_output+='\n\n'
-		string_output+='\n'.join(f.get_info())
+		l_info = f.get_info()
+		string_output+='\nName: '+l_info[0]
+		string_output+='\nPhone Number: '+l_info[1]
+		string_output+='\nEmail: '+l_info[2]
+		string_output+='\nAddress: '+l_info[3]
+		string_output+='\nBirthday: '+l_info[4][0:2]+'/'+l_info[4][2:4]+'/'+l_info[4][4:len(l_info[4])]
+		string_output+='\nFavorites: '+l_info[5]
 		string_output+='\n\n'
 		pass
 	return string_output
@@ -69,7 +75,13 @@ def search(name):
 	try:
 		person = search_name(name)
 		string_output+='\n\n'
-		string_output+='\n'.join(person.get_info())
+		l_info = person.get_info()
+		string_output+='\nName: '+l_info[0]
+		string_output+='\nPhone Number: '+l_info[1]
+		string_output+='\nEmail: '+l_info[2]
+		string_output+='\nAddress: '+l_info[3]
+		string_output+='\nBirthday: '+l_info[4][0:2]+'/'+l_info[4][2:4]+'/'+l_info[4][4:len(l_info[4])]
+		string_output+='\nFavorites: '+l_info[5]
 		string_output+='\n\n'
 	except:
 		string_output+='\n\n'
