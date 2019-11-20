@@ -1,6 +1,9 @@
 import tkinter as tk
 from tkinter import font as tkfont
 import Contact_book as cb
+from Person import Person
+
+list_info = [0 for i in range(6)]
 
 def lift_frame(frame_name):
     frame_name.lift()
@@ -18,6 +21,7 @@ def disp_info_name(evt):
     index = lbx.curselection()
     # get the line's text
     seltext = lbx.get(index)
+    call_edit(seltext)
     # print(seltext)
     info = cb.search(seltext)
     output1.delete(1.0,tk.END)
@@ -26,8 +30,36 @@ def disp_info_name(evt):
 def call_add(list_info):
 		cb.add_contact(list_info)
 
-def call_edit():
-	pass
+def call_edit(seltext):
+	global list_info
+	info = cb.search_name(seltext)
+	list_info = info.get_info()
+	name = tk.Entry(f3, width=20, bg="grey",highlightbackground='white')
+	name.insert(0, list_info[0])
+	name.place(relx=0.30, rely=0.25, relwidth=0.4, relheight=0.05)
+	phone = tk.Entry(f3, width=20, bg="grey",highlightbackground='white')
+	phone.insert(0, list_info[1])
+	phone.place(relx=0.30, rely=0.30, relwidth=0.4, relheight=0.05)
+	email = tk.Entry(f3, width=20, bg="grey",highlightbackground='white')
+	email.insert(0, list_info[2])
+	email.place(relx=0.30, rely=0.35, relwidth=0.4, relheight=0.05)
+	addy = tk.Entry(f3, width=20, bg="grey",highlightbackground='white')
+	addy.insert(0, list_info[3])
+	addy.place(relx=0.30, rely=0.40, relwidth=0.4, relheight=0.05)
+	bd = tk.Entry(f3, width=20, bg="grey",highlightbackground='white')
+	bd.insert(0, list_info[4])
+	bd.place(relx=0.30, rely=0.45, relwidth=0.4, relheight=0.05)
+	fav = tk.Entry(f3, width=20, bg="grey",highlightbackground='white')
+	fav.insert(0, list_info[5])
+	fav.place(relx=0.30, rely=0.50, relwidth=0.4, relheight=0.05)
+	# print(list_info[0])
+	b6 = tk.Button( f3, \
+    text="Edit Contact", \
+    highlightbackground = 'grey',
+    command=lambda: cb.edit(list_info[0],\
+    	[name.get(), phone.get(), email.get(), addy.get(), bd.get(), fav.get()])
+    )
+	b6.place(relx=0.42, rely=0.60, relwidth=0.15, relheight=0.05)
 
 def name_search(sv):
 	try:
@@ -50,8 +82,8 @@ def initial_listbox():
 	names = cb.get_names(name)
 	# print(names)
 	for n,name in enumerate(names):
-		# print(n, name)
 		lbx.insert(n,name)
+
 def call_add(list_info):
 	cb.add_contact(list_info)
 	initial_listbox()
@@ -107,6 +139,7 @@ b3.config(highlightbackground="grey", bg = 'grey', fg="black")
 
 f3 = tk.Frame(canvas, bg="#3f3f3f", bd=5)
 f3.place(relx=0.25, relwidth=0.75, relheight=1)
+
 
 b4 = tk.Button(f3, text="Back", font=("Helvetica", "12"), command=lambda: lift_frame(f2))
 b4.place(relx=0.85, rely=0.928, relwidth=0.0655, relheight=0.045)
