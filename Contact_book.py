@@ -1,30 +1,33 @@
 #####################################################################
 #	Contact_book.py							
-#																	
+#	Author: Harshith MohanKumar														
 #	Version: 1.0													
 #	Date: 11/02/2019												
-#	Description:	This module is the main module which performs	
-#					all of the crutial functions in order to		
-#					satisfy the users desires 						
-#	The Contact book stores information of each individual such	as 	
-#		thier name, phone number, email, residential address and	
-#		birthday. It will then provide the user with the following	
-#		services: 													
-#			1. Search for a contact 								
-#				a. By name 											
-#				b. Favorites 										
-#			2. Add a contact 										
-#			3. Edit a contact 													
+#	Description:	This module contains all of the backend work done
+#			to make the contact book functional. It does the following
+#			(1) Retrieves data from txt file
+#			(2) Sorts the data in the txt file
+#			(3) Performs binary search
+#			(4) Edits the data in the txt file							
 #####################################################################
 
+# Imports
 from Person import Person
 from tempfile import mkstemp
 from shutil import move
 import os
 
+# Global variable
+# Stores Person objects
 people_list = []
 
 def sort_contacts():
+	'''
+	This method sorts the txt file based on the 
+	individual's name in alphabetical order.
+	Parameter: None
+	Return: None
+	'''
 	parse_file()
 	people_list.sort(key=lambda x: x.get_name())
 
@@ -45,12 +48,31 @@ def sort_contacts():
 	move(abs_path, file_path)
 	parse_file()
 
+def string_format(l_info):
+	'''
+	This method formats the list into a string
+	which can be printed in the GUI
+	Parameters: List
+	Returns: String (contact information)
+	'''
+	output = ''
+	output+='\n\n'
+	output+='\nName: '+l_info[0]
+	output+='\nPhone Number: '+l_info[1]
+	output+='\nEmail: '+l_info[2]
+	output+='\nAddress: '+l_info[3]
+	output+='\nBirthday: '+l_info[4][0:2]+'/'+\
+		l_info[4][2:4]+'/'+l_info[4][4:len(l_info[4])]
+	output+='\nFavorites: '+l_info[5]
+	output+='\n\n'
+	return output
+
 def disp_fav():
 	'''
 	This function will filter out all of the favorite contacts in 
-	the list of contacts and display their information.
+	the list of contacts and return their information as a string.
 	parameters: none
-	return: none
+	return: String (contact information)
 	'''
 	sort_contacts()
 	string_output = ''
@@ -58,43 +80,31 @@ def disp_fav():
 	if len(fav_list)==0:
 		return '\n\nYou have no favorite contacts!'
 	for f in fav_list:
-		string_output+='\n\n'
-		l_info = f.get_info()
-		string_output+='\nName: '+l_info[0]
-		string_output+='\nPhone Number: '+l_info[1]
-		string_output+='\nEmail: '+l_info[2]
-		string_output+='\nAddress: '+l_info[3]
-		string_output+='\nBirthday: '+l_info[4][0:2]+'/'+l_info[4][2:4]+'/'+l_info[4][4:len(l_info[4])]
-		string_output+='\nFavorites: '+l_info[5]
-		string_output+='\n\n'
-		pass
+		string_output = string_format(f.get_info()) 
 	return string_output
 
 def search(name):
+	'''
+	This method determines if the person is in the contact book by
+	calling a binary search method and returns the appropriate answer
+	Parameters: String (contact name)
+	Returns: String (contact information)
+	'''
 	string_output = ''
 	try:
 		person = search_name(name)
-		string_output+='\n\n'
-		l_info = person.get_info()
-		string_output+='\nName: '+l_info[0]
-		string_output+='\nPhone Number: '+l_info[1]
-		string_output+='\nEmail: '+l_info[2]
-		string_output+='\nAddress: '+l_info[3]
-		string_output+='\nBirthday: '+l_info[4][0:2]+'/'+l_info[4][2:4]+'/'+l_info[4][4:len(l_info[4])]
-		string_output+='\nFavorites: '+l_info[5]
-		string_output+='\n\n'
+		string_output = string_format(person.get_info()) 
 	except:
-		string_output+='\n\n'
-		string_output+='CONTACT NOT FOUND! Please try again'
-		string_output+='\n\n'
+		string_output='\n\nCONTACT NOT FOUND! Please try again\n\n'
 	return string_output
 
 def search_name(name): 
 	'''
 	This program will perform a binary search to find
 	the person sent in through the parameter
-	Parameter: String name
-	Return: String
+	Parameter: String (contact name)
+	Return: if found: Person object
+			else: -1
 	'''
 	sort_contacts()
 	arr = people_list
@@ -136,6 +146,12 @@ def add_contact(list_info):
 	sort_contacts()
 
 def replace(file_path, pattern, subst, start = 0):
+	'''
+	Helper method created to edit the file.
+	Parameters: file path, pattern to edit, substitute for pattern
+				starting line value.
+	Return: None
+	'''
 	#Create temp file
 	fh, abs_path = mkstemp()
 	ctr =0
@@ -156,7 +172,7 @@ def edit(name,list_info):
 	'''
 	This function will perform any edits on an already existing
 	contact member and then append it to the contacts.txt file.
-	Parameter: string name, list of information about contact
+	Parameter: string name, list (contact info)
 	Return: none
 	'''
 	sort_contacts()
