@@ -1,5 +1,6 @@
 #########################################################################
-#	Person.py								
+#	Person.py
+#	Author: Harshith MohanKumar								
 #	Version: 1.0														
 #	Date: 11/02/2019													
 #	Description:	This module holds the Person class which hold all 
@@ -29,7 +30,7 @@ class Person:
 	def get_name(self):
 		'''
 		The get_name function is used to acess the individuals name.
-		Returns: 	name of individual
+		Returns: String name of individual
 		'''
 		return self.name
 	
@@ -46,6 +47,7 @@ class Person:
 		This method will display all of the information which is contained
 		about the person
 		Parameters: none
-		Returns: all info in a list
+		Returns: list of attributes
 		'''
-		return [self.name,self.phone,self.email,self.address,self.birthday, 'yes' if self.fav==True else 'no']
+		return [self.name,self.phone,self.email,self.address,self.birthday, 
+			'yes' if self.fav==True else 'no']
