@@ -4,8 +4,8 @@ This is a small GUI project which makes use of tkinter, OOP, and algorithms to c
 
 This project is a part of the python group project for Introduction to Computing using Python class at PES University.
 
-Started: Nov 2019
-Finished: Nov 2019
+Started: Nov 3rd 2019
+Finished: Nov 18th 2019
 
 ## Description: ##
 
