@@ -1,3 +1,13 @@
+#####################################################################
+#	new_interface.py							
+#	Author: Zayd Jamadar & Harshith MohanKumar														
+#	Version: 1.0													
+#	Date: 11/02/2019												
+#	Description:	This module contains the tkinter graphical user
+#				interface code. It displays the content and performs
+#				the appropriate actions based on the user input.					
+#####################################################################
+
 import tkinter as tk
 from tkinter import font as tkfont
 import Contact_book as cb
