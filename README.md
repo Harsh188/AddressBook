@@ -25,7 +25,7 @@ Frame 4: This frame is lifted when the add feature is called. It contains severa
 
 ## What we have learned: ##
 
-Durint this project my groupmate and I picked up a several new tools. They are as follows:
+During this project my groupmate and I picked up a several new tools. They are as follows:
 
 1. Object oriented programing
 2. Using the tkinter library
